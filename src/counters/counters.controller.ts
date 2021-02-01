@@ -7,7 +7,7 @@ import { UpdateCounterDto } from './dto/update-counter.dto';
 export class CountersController {
   constructor(private readonly countersService: CountersService) {}
 
-  @Post('/counters')
+  @Post()
   async create(@Body() createCounterDto: CreateCounterDto, @Res() res:any) {
     try {
       const newCounter: any = await this.countersService.create(createCounterDto);
@@ -34,22 +34,64 @@ export class CountersController {
   }
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.countersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.countersService.findOne(+id);
+  async findOne(@Param('id') id: string,  @Res() res:any) {
+    try {
+      const counter: any = await this.countersService.findOne(id);
+      if (counter.ok) {
+        return res.status(HttpStatus.OK).json({
+          ok: true,
+          data: counter.data
+        });
+      }
+    } catch (error) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        ok: false,
+        message: 'Not Found',
+        errors: error
+      });
+    }
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateCounterDto: UpdateCounterDto) {
-    return this.countersService.update(+id, updateCounterDto);
+  async update(@Param('id') id: string, @Res() res:any) {
+    try {
+      const counter: any = await this.countersService.update(id);
+      if (counter.ok) {
+        return res.status(HttpStatus.OK).json({
+          ok: true,
+          data: counter.data
+        });
+      }
+    } catch (error) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        ok: false,
+        message: 'Not Found',
+        errors: error
+      });
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.countersService.remove(+id);
+  async remove(@Param('id') id: string, @Res() res:any) {
+    try {
+      const counter: any = await this.countersService.remove(id);
+      if (counter.ok) {
+        return res.status(HttpStatus.OK).json({
+          ok: true,
+          data: counter.data
+        });
+      }
+    } catch (error) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        ok: false,
+        message: 'Not Found',
+        errors: error
+      });
+    }
   }
 }

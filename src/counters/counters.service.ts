@@ -13,19 +13,24 @@ export class CountersService {
     // return 'This action adds a new counter';
   }
 
-  findAll() {
-    return `This action returns all counters`;
+  async findAll() {
+    const counters = await this.counterRepository.getCounters();
+    return counters;
+    // return `This action returns all counters`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} counter`;
+  async findOne(id: string) {
+    const counter = await this.counterRepository.getCounter(id);
+    return counter;
   }
 
-  update(id: number, updateCounterDto: UpdateCounterDto) {
-    return `This action updates a #${id} counter`;
+  async update(id: string) {
+    const counter = await this.counterRepository.updateCounter(id);
+    return counter;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} counter`;
+  async remove(id: string) {
+    const counter = await this.counterRepository.removeCounter(id);
+    return counter;
   }
 }
