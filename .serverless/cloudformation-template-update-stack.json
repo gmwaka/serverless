@@ -133,8 +133,7 @@
                       "Fn::Sub": "arn:${AWS::Partition}:logs:${AWS::Region}:${AWS::AccountId}:log-group:/aws/lambda/counters-service-dev*:*:*"
                     }
                   ]
-                },
-                null
+                }
               ]
             }
           }
@@ -162,20 +161,13 @@
           "S3Bucket": {
             "Ref": "ServerlessDeploymentBucket"
           },
-          "S3Key": "serverless/counters-service/dev/1612210027182-2021-02-01T20:07:07.182Z/counters-service.zip"
+          "S3Key": "serverless/counters-service/dev/1612216332978-2021-02-01T21:52:12.978Z/counters-service.zip"
         },
         "Handler": "_optimize/counters-service-dev-main/src/lambda.handler",
         "Runtime": "nodejs12.x",
         "FunctionName": "counters-service-dev-main",
         "MemorySize": 1024,
         "Timeout": 6,
-        "Environment": {
-          "Variables": {
-            "COUNTERS_TABLE_NAME": {
-              "Ref": "CountersTable"
-            }
-          }
-        },
         "Role": {
           "Fn::GetAtt": [
             "IamRoleLambdaExecution",
@@ -187,14 +179,14 @@
         "MainLogGroup"
       ]
     },
-    "MainLambdaVersion2EWfSOiODPdBPTC0MpG3ujJYCQuidFXnin2iSjJGk": {
+    "MainLambdaVersioneoaezlWOnNnuIiGcCsIGMm4HQqxoY4BMz20J8qJj5aY": {
       "Type": "AWS::Lambda::Version",
       "DeletionPolicy": "Retain",
       "Properties": {
         "FunctionName": {
           "Ref": "MainLambdaFunction"
         },
-        "CodeSha256": "DnXn8+oJXUqTx0gIeqtteWl+oTYLSSyzzlDtGwA9qRI="
+        "CodeSha256": "Ylug2vUUUuTGxIHvE4KSIBvOV4oeFwbxIZRadYT3Dik="
       }
     },
     "ApiGatewayRestApi": {
@@ -267,7 +259,7 @@
         "MethodResponses": []
       }
     },
-    "ApiGatewayDeployment1612209648245": {
+    "ApiGatewayDeployment1612215948926": {
       "Type": "AWS::ApiGateway::Deployment",
       "Properties": {
         "RestApiId": {
@@ -326,7 +318,7 @@
     "MainLambdaFunctionQualifiedArn": {
       "Description": "Current Lambda function version",
       "Value": {
-        "Ref": "MainLambdaVersion2EWfSOiODPdBPTC0MpG3ujJYCQuidFXnin2iSjJGk"
+        "Ref": "MainLambdaVersioneoaezlWOnNnuIiGcCsIGMm4HQqxoY4BMz20J8qJj5aY"
       }
     },
     "ServiceEndpoint": {
