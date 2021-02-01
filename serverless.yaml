@@ -1,0 +1,34 @@
+service:
+  name: counters-service
+
+plugins:
+  - 'serverless-plugin-typescript'
+  - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: us-east-1
+  environment:
+    COUNTERS_TABLE_NAME: ${self:custom.CountersTable.name}
+  iamRoleStatements:
+    - ${file(resources/countersTableIAM.yaml):CountersTableIAM}
+
+resources:
+    Resources:
+        CountersTable: ${file(resources/countersTable.yaml):CountersTable}
+
+functions:
+  main: # The name of the lambda function
+    # The module 'handler' is exported in the file 'src/lambda'
+    handler: src/lambda.handler
+    events:
+      - http:
+          method: any
+          path: /{proxy+}
+      
+custom:
+    CountersTable:
+        name: !Ref CountersTable
+        arn: !GetAtt CountersTable.arn
